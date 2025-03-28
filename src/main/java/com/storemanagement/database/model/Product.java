@@ -35,4 +35,14 @@ public class Product {
 
     @Column(name = "is_synced", nullable = false)
     private boolean isSynced = false;
+
+    public Product(String name, BigDecimal quantity, BigDecimal price, String unit) {
+        this.name = name;
+        this.quantity = quantity;
+        this.price = price;
+        this.unit = unit;
+    }
+
+    public Product() {
+    }
 }
