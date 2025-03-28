@@ -15,4 +15,11 @@ public class AdminSettings {
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String password;
+
+    public AdminSettings(String password) {
+        this.password = password;
+    }
+
+    public AdminSettings() {
+    }
 }
