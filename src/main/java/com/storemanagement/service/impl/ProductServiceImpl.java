@@ -69,8 +69,16 @@ public class ProductServiceImpl implements ProductService {
         product.setQuantity(productAddDTO.getQuantity());
         product.setPrice(productAddDTO.getPrice());
         product.setUnit(productAddDTO.getUnit());
-        product.setImage(productAddDTO.getImage());
-        product.setType(productAddDTO.getType());
+
+        if (product.getImage() == null) {
+            product.setImage(productAddDTO.getImage());
+        }
+
+        if (product.getType() == null) {
+
+            product.setType(productAddDTO.getType());
+        }
+
         product.setLastUpdated(LocalDateTime.now(ZoneId.of("Europe/Sofia")));
         product.setSelected(true);
         product.setSynced(false);
