@@ -3,7 +3,6 @@ package com.storemanagement.database.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -27,10 +26,20 @@ public class Purchase {
     @Column(name = "price_at_time", nullable = false, precision = 10, scale = 2)
     private BigDecimal  priceAtTime;
 
-    @CreationTimestamp
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
     @Column(name = "is_synced", nullable = false)
-    private boolean isSynced = false;
+    private boolean isSynced;
+
+    public Purchase(Product product, BigDecimal quantity, BigDecimal priceAtTime, LocalDateTime createdAt, boolean isSynced) {
+        this.product = product;
+        this.quantity = quantity;
+        this.priceAtTime = priceAtTime;
+        this.createdAt = createdAt;
+        this.isSynced = isSynced;
+    }
+
+    public Purchase() {
+    }
 }
