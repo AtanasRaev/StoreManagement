@@ -27,4 +27,10 @@ public class ProductAddDTO {
     @NotBlank(message = "Unit is required")
     @Size(min = 2, max = 3, message = "Unit must be between 1 and 3 characters")
     private String unit;
+
+    @NotBlank(message = "Type is required")
+    private String type;
+
+    @NotBlank(message = "Type is required")
+    private String image;
 }
