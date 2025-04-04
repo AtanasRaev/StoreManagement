@@ -8,7 +8,10 @@ import com.storemanagement.service.ProductService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -22,20 +25,20 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public boolean addProduct(ProductAddDTO productAddDTO) {
-        this.productRepository.save(new Product(
-                productAddDTO.getName(),
-                productAddDTO.getQuantity(),
-                productAddDTO.getPrice(),
-                productAddDTO.getUnit()
-        ));
+    public boolean addOrUpdateProduct(ProductAddDTO productAddDTO) {
+        Optional<Product> optional = this.productRepository.findByName(productAddDTO.getName());
+        Product product;
 
+        product = optional.orElseGet(Product::new);
+        setFields(productAddDTO, product);
+
+        this.productRepository.save(product);
         return true;
     }
 
     @Override
-    public List<ProductPageDTO> getAll() {
-        return this.productRepository.findAll()
+    public List<ProductPageDTO> getAllSelected() {
+        return this.productRepository.findAllBySelected(true)
                 .stream()
                 .map(product -> this.modelMapper.map(product, ProductPageDTO.class))
                 .toList();
@@ -47,4 +50,30 @@ public class ProductServiceImpl implements ProductService {
                 .map(product -> this.modelMapper.map(product, ProductPageDTO.class))
                 .orElse(null);
     }
+
+    @Override
+    public boolean unselectProduct(Long id) {
+        return productRepository.findById(id)
+                .map(product -> {
+                    product.setSelected(false);
+                    productRepository.save(product);
+                    return true;
+                })
+                .orElse(false);
+    }
+
+    private static void setFields(ProductAddDTO productAddDTO, Product product) {
+        if (product.getName() == null) {
+            product.setName(productAddDTO.getName());
+        }
+        product.setQuantity(productAddDTO.getQuantity());
+        product.setPrice(productAddDTO.getPrice());
+        product.setUnit(productAddDTO.getUnit());
+        product.setImage(productAddDTO.getImage());
+        product.setType(productAddDTO.getType());
+        product.setLastUpdated(LocalDateTime.now(ZoneId.of("Europe/Sofia")));
+        product.setSelected(true);
+        product.setSynced(false);
+    }
+
 }
