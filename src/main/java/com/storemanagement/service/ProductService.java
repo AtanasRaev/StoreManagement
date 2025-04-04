@@ -6,9 +6,11 @@ import com.storemanagement.database.dto.ProductPageDTO;
 import java.util.List;
 
 public interface ProductService {
-    boolean addProduct(ProductAddDTO productAddDTO);
+    boolean addOrUpdateProduct(ProductAddDTO productAddDTO);
 
-    List<ProductPageDTO> getAll();
+    List<ProductPageDTO> getAllSelected();
 
     ProductPageDTO getById(Long id);
+
+    boolean unselectProduct(Long id);
 }
