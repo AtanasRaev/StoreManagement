@@ -9,6 +9,3 @@ spring:
       ddl-auto: update
     database-platform: com.storemanagement.config.SQLiteDialect
     show-sql: true
-  sql:
-    init:
-      mode: always
