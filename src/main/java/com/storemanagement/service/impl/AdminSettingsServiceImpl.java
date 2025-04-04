@@ -21,19 +21,15 @@ public class AdminSettingsServiceImpl implements AdminSettingsService {
     }
 
     @Override
-    public boolean hasPasswordSet() {
-        return this.adminSettingsRepository.findById(1L).isPresent();
-    }
-
-    @Override
-    public void setPassword(PasswordDTO dto) {
-        this.adminSettingsRepository.save(new AdminSettings(this.passwordEncoder.encode(dto.getPassword())));
-    }
-
-    @Override
     public boolean login(PasswordDTO dto) {
-        Optional<AdminSettings> byId = this.adminSettingsRepository.findById(1L);
-        return byId.map(adminSettings ->
+        Optional<AdminSettings> optional = this.adminSettingsRepository.findById(1L);
+
+        if (optional.isEmpty()) {
+            this.adminSettingsRepository.save(new AdminSettings(this.passwordEncoder.encode(dto.getPassword())));
+            return true;
+        }
+
+        return optional.map(adminSettings ->
                 adminSettings.getPassword().equals(this.passwordEncoder.encode(dto.getPassword()))
         ).orElse(false);
     }
