@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/product")
+@RequestMapping("/products")
 public class ProductController {
     private final ProductService productService;
 
@@ -21,7 +21,7 @@ public class ProductController {
 
     @PostMapping("/add")
     public ResponseEntity<?> addProduct(@RequestBody @Valid ProductAddDTO productAddDTO) {
-        if (!this.productService.addProduct(productAddDTO)) {
+        if (!this.productService.addOrUpdateProduct(productAddDTO)) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
                     .body(Map.of("message", "Product not added"));
         }
@@ -29,9 +29,9 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<?> getAllProducts() {
+    public ResponseEntity<?> getAllSelectedProducts() {
         return ResponseEntity.ok(Map.of(
-                "products", this.productService.getAll()
+                "products", this.productService.getAllSelected()
         ));
     }
 
@@ -51,6 +51,23 @@ public class ProductController {
 
         return ResponseEntity.ok(Map.of(
                 "product", productDTO
+        ));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> unselectProduct(@PathVariable Long id) {
+        if (id == null || id <= 0) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(Map.of("message", "Id must be greater than 0"));
+        }
+
+        if (!this.productService.unselectProduct(id)) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(Map.of("message", "Product not unselected"));
+        }
+
+        return ResponseEntity.ok(Map.of(
+                "message", "Product with id " + id + " was edited"
         ));
     }
 }
