@@ -5,9 +5,10 @@ import com.storemanagement.service.AdminSettingsService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/admin")
@@ -16,22 +17,6 @@ public class AdminController {
 
     public AdminController(AdminSettingsService adminSettingsService) {
         this.adminSettingsService = adminSettingsService;
-    }
-
-    @GetMapping("/has-password")
-    public Map<String, Boolean> hasPassword() {
-        return Map.of("hasPassword", this.adminSettingsService.hasPasswordSet());
-    }
-
-    @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody @Valid PasswordDTO dto) {
-        if (this.adminSettingsService.hasPasswordSet()) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN)
-                    .body("Password already set.");
-        }
-
-        this.adminSettingsService.setPassword(dto);
-        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/login")
