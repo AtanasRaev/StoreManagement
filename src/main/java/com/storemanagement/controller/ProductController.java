@@ -23,9 +23,13 @@ public class ProductController {
     public ResponseEntity<?> addProduct(@RequestBody @Valid ProductAddDTO productAddDTO) {
         if (!this.productService.addOrUpdateProduct(productAddDTO)) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(Map.of("message", "Product not added"));
+                    .body(Map.of(
+                            "message", "Product not added"
+                    ));
         }
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(Map.of(
+                "message", "Successfully added product"
+        ));
     }
 
     @GetMapping
@@ -39,14 +43,18 @@ public class ProductController {
     public ResponseEntity<?> getProduct(@PathVariable Long id) {
         if (id == null || id <= 0) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(Map.of("message", "Id must be greater than 0"));
+                    .body(Map.of(
+                            "message", "Id must be greater than 0"
+                    ));
         }
 
         ProductPageDTO productDTO = this.productService.getById(id);
 
         if (productDTO == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(Map.of("message", "Product with id " + id + " not found"));
+                    .body(Map.of(
+                            "message", "Product with id " + id + " not found"
+                    ));
         }
 
         return ResponseEntity.ok(Map.of(
@@ -58,12 +66,16 @@ public class ProductController {
     public ResponseEntity<?> unselectProduct(@PathVariable Long id) {
         if (id == null || id <= 0) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(Map.of("message", "Id must be greater than 0"));
+                    .body(Map.of(
+                            "message", "Id must be greater than 0"
+                    ));
         }
 
         if (!this.productService.unselectProduct(id)) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(Map.of("message", "Product not unselected"));
+                    .body(Map.of(
+                            "message", "Product not unselected"
+                    ));
         }
 
         return ResponseEntity.ok(Map.of(
