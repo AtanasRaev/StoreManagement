@@ -11,5 +11,5 @@ import java.util.Optional;
 public interface ProductRepository extends JpaRepository<Product, Long> {
     Optional<Product> findByName(String name);
 
-    List<Product> findAllBySelected(boolean selected);
+    List<Product> findAllBySelectedIs(boolean selected);
 }
