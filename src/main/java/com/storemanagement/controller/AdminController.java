@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
@@ -23,8 +25,12 @@ public class AdminController {
     public ResponseEntity<?> login(@RequestBody @Valid PasswordDTO dto) {
         if (!this.adminSettingsService.login(dto)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body("Invalid password");
+                    .body(Map.of(
+                            "message", "Invalid password")
+                    );
         }
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(Map.of(
+                "message", "Successfully logged in"
+        ));
     }
 }
