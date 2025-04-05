@@ -38,7 +38,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductPageDTO> getAllSelected() {
-        return this.productRepository.findAllBySelected(true)
+        return this.productRepository.findAllBySelectedIs(true)
                 .stream()
                 .map(product -> this.modelMapper.map(product, ProductPageDTO.class))
                 .toList();
