@@ -30,7 +30,7 @@ public class AdminSettingsServiceImpl implements AdminSettingsService {
         }
 
         return optional.map(adminSettings ->
-                adminSettings.getPassword().equals(this.passwordEncoder.encode(dto.getPassword()))
+                this.passwordEncoder.matches(dto.getPassword(), adminSettings.getPassword())
         ).orElse(false);
     }
 }
