@@ -59,7 +59,7 @@ public class SQLiteDialect extends Dialect {
 
             @Override
             public String getIdentityColumnString(int type) {
-                return "integer";
+                return "primary key autoincrement";
             }
         };
     }
