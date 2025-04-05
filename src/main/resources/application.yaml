@@ -6,6 +6,10 @@ spring:
     driver-class-name: org.sqlite.JDBC
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     database-platform: com.storemanagement.config.SQLiteDialect
     show-sql: true
+  sql:
+    init:
+      mode:
+        never
