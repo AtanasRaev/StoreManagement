@@ -14,7 +14,8 @@ import java.time.LocalDateTime;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @Column(name = "id", columnDefinition = "integer primary key autoincrement")
+    private Long id;
 
     @Column(nullable = false, unique = true)
     private String name;
