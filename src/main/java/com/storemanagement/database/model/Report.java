@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 public class Report {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", columnDefinition = "integer primary key autoincrement")
     private Long id;
 
     @ManyToOne(optional = false)

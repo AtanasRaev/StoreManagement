@@ -11,7 +11,6 @@ import lombok.Setter;
 public class AdminSettings {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", columnDefinition = "integer primary key autoincrement")
     private Long id;
 
     @Column(nullable = false, columnDefinition = "TEXT")
