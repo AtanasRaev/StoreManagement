@@ -5,6 +5,7 @@ import com.storemanagement.database.dto.ProductPageDTO;
 import com.storemanagement.database.model.Product;
 import com.storemanagement.database.repository.ProductRepository;
 import com.storemanagement.service.ProductService;
+import com.storemanagement.service.ReportService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +18,14 @@ import java.util.Optional;
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final ModelMapper modelMapper;
+    private final ReportService reportService;
 
     public ProductServiceImpl(ProductRepository productRepository,
-                              ModelMapper modelMapper) {
+                              ModelMapper modelMapper,
+                              ReportService reportService) {
         this.productRepository = productRepository;
         this.modelMapper = modelMapper;
+        this.reportService = reportService;
     }
 
     @Override
@@ -31,6 +35,7 @@ public class ProductServiceImpl implements ProductService {
 
         product = optional.orElseGet(Product::new);
         setFields(productAddDTO, product);
+        this.reportService.createReport(product);
 
         this.productRepository.save(product);
         return true;
