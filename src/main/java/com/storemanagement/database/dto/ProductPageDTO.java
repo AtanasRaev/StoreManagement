@@ -1,5 +1,6 @@
 package com.storemanagement.database.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,5 +24,6 @@ public class ProductPageDTO {
 
     private String image;
 
+    @JsonFormat(pattern = "dd-MM-yyyy HH:mm", timezone = "Europe/Sofia")
     private LocalDateTime lastUpdated;
 }
