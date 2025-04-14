@@ -35,9 +35,9 @@ public class ProductServiceImpl implements ProductService {
 
         product = optional.orElseGet(Product::new);
         setFields(productAddDTO, product);
-        this.reportService.createReport(product);
 
         this.productRepository.save(product);
+        this.reportService.createReport(product);
         return true;
     }
 
