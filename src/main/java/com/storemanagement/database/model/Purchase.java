@@ -24,8 +24,8 @@ public class Purchase {
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal quantity;
 
-    @Column(name = "price_at_time", nullable = false, precision = 10, scale = 2)
-    private BigDecimal  priceAtTime;
+    @Column(name = "price", nullable = false, precision = 10, scale = 2)
+    private BigDecimal  price;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
@@ -33,10 +33,10 @@ public class Purchase {
     @Column(name = "is_synced", nullable = false)
     private boolean isSynced;
 
-    public Purchase(Product product, BigDecimal quantity, BigDecimal priceAtTime, LocalDateTime createdAt, boolean isSynced) {
+    public Purchase(Product product, BigDecimal quantity, BigDecimal price, LocalDateTime createdAt, boolean isSynced) {
         this.product = product;
         this.quantity = quantity;
-        this.priceAtTime = priceAtTime;
+        this.price = price;
         this.createdAt = createdAt;
         this.isSynced = isSynced;
     }
