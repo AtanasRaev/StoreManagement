@@ -22,9 +22,8 @@ public class ReportController {
     }
 
     @GetMapping()
-    public ResponseEntity<?> getReport(@RequestParam List<Long> id,
-                                       @RequestParam LocalDate startDate) {
-        List<ReportCheckDTO> report = this.reportService.getReportFor(id, startDate);
+    public ResponseEntity<?> getReport(@RequestParam LocalDate startDate) {
+        List<ReportCheckDTO> report = this.reportService.getReportInPeriod(startDate);
 
         return ResponseEntity.ok(Map.of(
                 "report", report
