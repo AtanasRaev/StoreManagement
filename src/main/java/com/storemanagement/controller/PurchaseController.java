@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -45,7 +46,12 @@ public class PurchaseController {
         Page<PurchasePageDTO> purchasePage = this.purchaseService.getAll(pageable);
 
         return ResponseEntity.ok(Map.of(
-                "purchases", purchasePage
+                "status", "success",
+                "purchases", purchasePage.getContent(),
+                "items_on_page", purchasePage.getNumberOfElements(),
+                "total_items", purchasePage.getTotalElements(),
+                "total_pages", purchasePage.getTotalPages(),
+                "current_page", purchasePage.getNumber() + 1
         ));
     }
 
@@ -54,13 +60,13 @@ public class PurchaseController {
         String sortBy;
 
         switch (sort) {
-            case "priceDesc" -> sortBy = "priceAtTime";
+            case "priceDesc" -> sortBy = "price";
             case "oldest" -> {
                 sortBy = "createdAt";
                 direction = Sort.Direction.ASC;
             }
             case "priceAsc" -> {
-                sortBy = "priceAtTime";
+                sortBy = "price";
                 direction = Sort.Direction.ASC;
             }
             default -> sortBy = "createdAt";
