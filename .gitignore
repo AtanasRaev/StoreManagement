@@ -36,5 +36,5 @@ out/
 ### VS Code ###
 .vscode/
 
-# Include SQLite database file
-store.db
+# Include H2 database file
+/data/mydb.mv.db
