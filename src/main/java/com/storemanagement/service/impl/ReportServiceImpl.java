@@ -10,13 +10,11 @@ import com.storemanagement.service.ReportService;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -57,8 +55,10 @@ public class ReportServiceImpl implements ReportService {
             }
             PurchaseQuantityDTO purchase = purchaseMap.get(report.getProduct());
             if (purchase != null && purchase.getQuantity() != null) {
+                report.setQuantitySold(purchase.getQuantity());
                 BigDecimal combinedQuantity = report.getQuantityNow().add(purchase.getQuantity());
-                if (combinedQuantity.compareTo(report.getQuantityLoaded()) != 0) {
+                if (report.getQuantityLoaded().compareTo(BigDecimal.ZERO) != 0
+                        && combinedQuantity.compareTo(report.getQuantityLoaded()) != 0) {
                     BigDecimal scrap = report.getQuantityLoaded().subtract(combinedQuantity);
                     report.setScrap(scrap);
                 }
