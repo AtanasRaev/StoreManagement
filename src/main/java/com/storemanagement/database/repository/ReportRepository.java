@@ -17,7 +17,9 @@ public interface ReportRepository extends JpaRepository<Report, Long> {
                 MIN(r.createdAt),
                 SUM(r.quantity),
                 r.product.quantity,
-                r.product.name
+                r.product.name,
+                r.product.unit,
+                r.product.image
             )
             FROM Report r
             WHERE r.createdAt BETWEEN :startDate AND :endDate
