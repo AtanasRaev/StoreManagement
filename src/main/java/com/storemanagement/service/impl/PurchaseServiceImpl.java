@@ -2,6 +2,7 @@ package com.storemanagement.service.impl;
 
 import com.storemanagement.database.dto.PurchaseCreateDTO;
 import com.storemanagement.database.dto.PurchasePageDTO;
+import com.storemanagement.database.dto.PurchaseQuantityDTO;
 import com.storemanagement.database.model.Product;
 import com.storemanagement.database.model.Purchase;
 import com.storemanagement.database.repository.ProductRepository;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -58,5 +60,10 @@ public class PurchaseServiceImpl implements PurchaseService {
     public Page<PurchasePageDTO> getAll(Pageable pageable) {
         return this.purchaseRepository.findAll(pageable)
                 .map(purchase -> this.modelMapper.map(purchase, PurchasePageDTO.class));
+    }
+
+    @Override
+    public List<PurchaseQuantityDTO> getPurchaseQuantityInPeriod(LocalDateTime startDate, LocalDateTime endDate) {
+        return this.purchaseRepository.findPurchaseInPeriod(startDate, endDate);
     }
 }
