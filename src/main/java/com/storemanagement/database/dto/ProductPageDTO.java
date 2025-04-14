@@ -19,5 +19,9 @@ public class ProductPageDTO {
 
     private String unit;
 
+    private String type;
+
+    private String image;
+
     private LocalDateTime lastUpdated;
 }
