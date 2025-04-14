@@ -1,5 +1,6 @@
 package com.storemanagement.database.repository;
 
+import com.storemanagement.database.dto.PurchasePageDTO;
 import com.storemanagement.database.dto.PurchaseQuantityDTO;
 import com.storemanagement.database.model.Purchase;
 import org.springframework.data.jpa.repository.JpaRepository;
