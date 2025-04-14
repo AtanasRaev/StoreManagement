@@ -11,21 +11,23 @@ import java.time.LocalDateTime;
 public class ReportCheckDTO {
     private Long id;
 
-    private LocalDateTime stockLoadedAt;
+    private LocalDateTime loadedAt;
 
-    private BigDecimal stockQuantityLoaded;
+    private BigDecimal quantityLoaded;
 
-    private BigDecimal stockQuantityNow;
+    private BigDecimal quantityNow;
+
+    private BigDecimal scrap;
 
     private String product;
 
-    public ReportCheckDTO(LocalDateTime stockLoadedAt,
-                          BigDecimal stockQuantityLoaded,
-                          BigDecimal stockQuantityNow,
+    public ReportCheckDTO(LocalDateTime loadedAt,
+                          BigDecimal quantityLoaded,
+                          BigDecimal quantityNow,
                           String product) {
-        this.stockLoadedAt = stockLoadedAt;
-        this.stockQuantityLoaded = stockQuantityLoaded;
-        this.stockQuantityNow = stockQuantityNow;
+        this.loadedAt = loadedAt;
+        this.quantityLoaded = quantityLoaded;
+        this.quantityNow = quantityNow;
         this.product = product;
     }
 
