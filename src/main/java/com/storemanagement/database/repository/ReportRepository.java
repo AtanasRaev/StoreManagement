@@ -20,13 +20,10 @@ public interface ReportRepository extends JpaRepository<Report, Long> {
                 r.product.name
             )
             FROM Report r
-            WHERE r.product.id IN :ids
-              AND r.createdAt BETWEEN :startDate AND :endDate
+            WHERE r.createdAt BETWEEN :startDate AND :endDate
             GROUP BY r.product.id, r.product.quantity, r.product""")
     List<ReportCheckDTO> findReportSummaryInPeriod(
-            @Param("ids") List<Long> ids,
             @Param("startDate") LocalDateTime start,
             @Param("endDate") LocalDateTime end
     );
-
 }

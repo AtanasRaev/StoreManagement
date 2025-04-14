@@ -9,5 +9,5 @@ import java.util.List;
 public interface ReportService {
     void createReport(Product product);
 
-    List<ReportCheckDTO> getReportFor(List<Long> id, LocalDate startDate);
+    List<ReportCheckDTO> getReportInPeriod(LocalDate startDate);
 }
