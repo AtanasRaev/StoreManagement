@@ -16,7 +16,7 @@ public class PurchasePageDTO {
 
     private BigDecimal quantity;
 
-    private BigDecimal  priceAtTime;
+    private BigDecimal  price;
 
     private LocalDateTime createdAt;
 }
