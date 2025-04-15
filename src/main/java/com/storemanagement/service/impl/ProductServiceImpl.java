@@ -80,7 +80,6 @@ public class ProductServiceImpl implements ProductService {
         }
 
         if (product.getType() == null) {
-
             product.setType(productAddDTO.getType());
         }
 
