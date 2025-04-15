@@ -12,8 +12,13 @@ public class PurchaseQuantityDTO {
 
     private BigDecimal quantity;
 
-    public PurchaseQuantityDTO(String product, BigDecimal quantity) {
+    private BigDecimal total;
+
+    public PurchaseQuantityDTO(String product,
+                               BigDecimal quantity,
+                               BigDecimal total) {
         this.product = product;
         this.quantity = quantity;
+        this.total = total;
     }
 }
