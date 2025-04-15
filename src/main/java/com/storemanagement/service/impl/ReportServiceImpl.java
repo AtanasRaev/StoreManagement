@@ -55,6 +55,7 @@ public class ReportServiceImpl implements ReportService {
             }
             PurchaseQuantityDTO purchase = purchaseMap.get(report.getProduct());
             if (purchase != null && purchase.getQuantity() != null) {
+                report.setTotal(purchase.getTotal());
                 report.setQuantitySold(purchase.getQuantity());
                 BigDecimal combinedQuantity = report.getQuantityNow().add(purchase.getQuantity());
                 if (report.getQuantityLoaded().compareTo(BigDecimal.ZERO) != 0
