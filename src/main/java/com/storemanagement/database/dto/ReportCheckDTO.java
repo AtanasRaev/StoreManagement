@@ -19,6 +19,8 @@ public class ReportCheckDTO {
 
     private BigDecimal quantitySold;
 
+    private BigDecimal total;
+
     private BigDecimal scrap;
 
     private String product;
