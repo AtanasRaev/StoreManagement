@@ -31,7 +31,7 @@ public interface ReportRepository extends JpaRepository<Report, Long> {
     );
 
     @Query("SELECT p FROM Report p WHERE p.isSynced = false")
-    List<ReportCloudDTO> findAllNotSynced();
+    List<Report> findAllNotSynced();
 
     List<Report> findAllByIdIn(List<Long> appIds);
 }

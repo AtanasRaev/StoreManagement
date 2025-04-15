@@ -64,7 +64,7 @@ public class SyncService {
     }
 
     private Map<String, List<String>> syncProducts() {
-        List<ProductCloudDTO> notSynced = this.productRepository.findAllNotSynced();
+        List<Product> notSynced = this.productRepository.findAllNotSynced();
         return this.webClient.post()
                 .uri(API_URL + "/products")
                 .body(BodyInserters.fromValue(notSynced))
@@ -76,7 +76,7 @@ public class SyncService {
 
 
     private Map<String, List<Long>> syncPurchases() {
-        List<PurchaseCloudDTO> notSynced = this.purchaseRepository.findAllNotSynced();
+        List<Purchase> notSynced = this.purchaseRepository.findAllNotSynced();
         return this.webClient.post()
                 .uri(API_URL + "/purchases")
                 .body(BodyInserters.fromValue(notSynced))
@@ -87,7 +87,7 @@ public class SyncService {
     }
 
     private Map<String, List<Long>> syncReports() {
-        List<ReportCloudDTO> notSynced = this.reportRepository.findAllNotSynced();
+        List<Report> notSynced = this.reportRepository.findAllNotSynced();
         return this.webClient.post()
                 .uri(API_URL + "/reports")
                 .body(BodyInserters.fromValue(notSynced))

@@ -21,7 +21,7 @@ public interface PurchaseRepository extends JpaRepository<Purchase, Long> {
                                                    @Param("endDate") LocalDateTime endDate);
 
     @Query("SELECT p FROM Purchase p WHERE p.isSynced = false")
-    List<PurchaseCloudDTO> findAllNotSynced();
+    List<Purchase> findAllNotSynced();
 
     List<Purchase> findAllByIdIn(List<Long> appIds);
 }

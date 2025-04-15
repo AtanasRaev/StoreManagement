@@ -19,7 +19,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
 
     @Query("SELECT p FROM Product p WHERE p.isSynced = false")
-    List<ProductCloudDTO> findAllNotSynced();
+    List<Product> findAllNotSynced();
 
     List<Product> findAllByNameIn(List<String> names);
 }
