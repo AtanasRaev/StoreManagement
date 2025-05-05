@@ -26,7 +26,7 @@ public class SyncService {
     private final PurchaseRepository purchaseRepository;
     private final ReportRepository reportRepository;
     private final WebClient webClient;
-    private final static String API_URL = "";
+    private final static String API_URL = "https://sync-store.onrender.com/sync";
 
     public SyncService(InternetCheckerService internetCheckerService,
                        ProductRepository productRepository,
@@ -40,27 +40,33 @@ public class SyncService {
         this.webClient = webClient;
     }
 
-    @Scheduled(fixedRate = 120000)
+    @Scheduled(fixedRate = 7200000)
     private void sync() {
         if (!this.internetCheckerService.isInternetAvailable()) {
             return;
         }
 
         Map<String, List<String>> syncProducts = syncProducts();
-        List<Product> products = this.productRepository.findAllByNameIn(syncProducts.get("names"));
-        products.forEach(product -> product.setSynced(true));
-        this.productRepository.saveAll(products);
+        if (syncProducts != null && !syncProducts.isEmpty()) {
+            List<Product> products = this.productRepository.findAllByNameIn(syncProducts.get("names"));
+            products.forEach(product -> product.setSynced(true));
+            this.productRepository.saveAll(products);
+        }
 
 
         Map<String, List<Long>> syncPurchases = syncPurchases();
-        List<Purchase> purchases = this.purchaseRepository.findAllByIdIn(syncPurchases.get("appIds"));
-        purchases.forEach(purchase -> purchase.setSynced(true));
-        this.purchaseRepository.saveAll(purchases);
+        if (syncPurchases != null && !syncPurchases.isEmpty()) {
+            List<Purchase> purchases = this.purchaseRepository.findAllByIdIn(syncPurchases.get("appIds"));
+            purchases.forEach(purchase -> purchase.setSynced(true));
+            this.purchaseRepository.saveAll(purchases);
+        }
 
         Map<String, List<Long>> syncReports = syncReports();
-        List<Report> reports = this.reportRepository.findAllByIdIn(syncReports.get("appIds"));
-        reports.forEach(report -> report.setSynced(true));
-        this.reportRepository.saveAll(reports);
+        if (syncReports != null && !syncReports.isEmpty()) {
+            List<Report> reports = this.reportRepository.findAllByIdIn(syncReports.get("appIds"));
+            reports.forEach(report -> report.setSynced(true));
+            this.reportRepository.saveAll(reports);
+        }
     }
 
     private Map<String, List<String>> syncProducts() {
